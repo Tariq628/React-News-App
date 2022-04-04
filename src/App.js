@@ -29,7 +29,7 @@ const defaultProps = {};
     return(
       <div>
       <Navbar/>
-      <News pageSize={5} country="in"/>
+      <News pageSize={5} country="in" category="sports"/>
       </div>
     )
   }
