@@ -24,6 +24,7 @@ export class News extends Component {
         }
     }
     async componentDidMount() {
+        console.log(this.props.category);
         let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=ba8551c420f14d84a6541f06250a6376&page=1&pageSize=${this.props.pageSize}`;
         let data = await fetch(url);
         let parseData = await data.json();
@@ -45,7 +46,7 @@ export class News extends Component {
     }
     handleNextClick = async () => {
         console.log("Mext");
-        console.log(this.props.pageSize)
+        console.log(this.props.category)
         if (!(this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pageSize))) {
             let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=ba8551c420f14d84a6541f06250a6376&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
             this.setState({loading: true});
@@ -68,7 +69,7 @@ export class News extends Component {
                 <div className="row">
                     {!this.state.loading && this.state.articles.map((element) => {
                         return <div className="col-md-4" key={element.url}>
-                            <NewsItem title={element.title ? element.title.slice(0, 45) : ""} description={element.description ? element.description.slice(0, 45) : ""} imageurl={element.urlToImage} newsurl={element.url} />
+                            <NewsItem title={element.title ? element.title.slice(0, 45) : ""} description={element.description ? element.description.slice(0, 45) : ""} imageurl={element.urlToImage} newsurl={element.url} author={element.author} date={element.publishedAt} source={element.source.name} />
                         </div>
                     }
                     )}
